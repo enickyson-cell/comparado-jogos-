@@ -1,0 +1,116 @@
+{% extends "base.html" %}
+
+{% block title %}Comparador de Jogos{% endblock %}
+
+{% block content %}
+
+<h2>🎮 Comparador de Jogos</h2>
+
+<form method="GET" class="form-pesquisa">
+
+    <input
+        type="text"
+        name="q"
+        placeholder="Digite o nome de um jogo..."
+        value="{{ pesquisa }}"
+        required
+    >
+
+    <button type="submit">🔎 Pesquisar</button>
+
+</form>
+
+
+{% if jogos %}
+
+    <div class="resultado-principal">
+
+        <img
+            src="{{ jogo_principal.thumb }}"
+            alt="Capa de {{ jogo_principal.title }}"
+            class="capa-jogo"
+        >
+
+       <h2 class="nome-jogo">🎮 {{ jogo_principal.external }}</h2>
+    {% if ofertas %}
+
+        <p>
+            🏆 <strong>Menor preço encontrado:</strong>
+            R$ {{ "%.2f"|format(ofertas[0].salePriceBRL) }}
+        </p>
+
+        <p>
+            🏪 <strong>Loja:</strong>
+            {{ ofertas[0].storeName }}
+        </p>
+
+    {% endif %}
+
+</div>
+
+{% elif pesquisa %}
+
+    <div class="sem-tarefas">
+
+        <p>
+            Nenhum jogo encontrado para "{{ pesquisa }}".
+        </p>
+
+    </div>
+
+{% endif %}
+
+
+{% if ofertas %}
+
+    <h2>🛒 Ofertas encontradas</h2>
+
+    <div class="lista-tarefas">
+
+        {% for oferta in ofertas %}
+
+            <div class="tarefa {% if oferta.mais_barato %}mais-barato{% endif %}">
+
+                <h3>🏪 {{ oferta.storeName }}</h3>
+
+                <p>
+                    <strong>Preço normal:</strong>
+                    R$ {{ "%.2f"|format(oferta.normalPriceBRL) }}
+                </p>
+
+                <p>
+                    <strong>Preço atual:</strong>
+                    R$ {{ "%.2f"|format(oferta.salePriceBRL) }}
+                </p>
+
+                {% if oferta.savings|float > 0 %}
+
+                    <p>
+                        🔥 <strong>
+                            {{ "%.0f"|format(oferta.savings|float) }}% OFF
+                        </strong>
+                    </p>
+
+                {% else %}
+
+                    <p>
+                        Sem promoção
+                    </p>
+
+                {% endif %}
+
+                <a
+                    href="https://www.cheapshark.com/redirect?dealID={{ oferta.dealID }}"
+                    target="_blank"
+                >
+                    Ver oferta
+                </a>
+
+            </div>
+
+        {% endfor %}
+
+    </div>
+
+{% endif %}
+{% endblock %}

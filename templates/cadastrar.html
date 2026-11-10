@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block title %}Adicionar Jogo{% endblock %}
+
+{% block content %}
+
+<h2>Adicionar novo jogo</h2>
+
+<form method="POST">
+
+    <label>Nome do jogo:</label>
+    <input type="text" name="nome" required>
+
+    <label>Preço normal:</label>
+    <input type="number" name="preco_normal" step="0.01" required>
+
+    <label>Preço atual:</label>
+    <input type="number" name="preco_atual" step="0.01" required>
+
+    <label>Loja:</label>
+    <input type="text" name="loja" placeholder="Ex: Steam, Epic Games..." required>
+
+    <button type="submit">Adicionar jogo</button>
+
+</form>
+
+{% endblock %}

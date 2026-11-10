@@ -45,6 +45,18 @@ def inserir_jogo(nome, preco_normal, preco_atual, loja):
 
     conexao.commit()
     conexao.close()
+    def buscar_jogos(nome):
+        conexao = conectar()
+
+    jogos = conexao.execute("""
+        SELECT * FROM jogos
+        WHERE nome LIKE ?
+        ORDER BY preco_atual ASC
+    """, (f"%{nome}%",)).fetchall()
+
+    conexao.close()
+
+    return jogos 
 def buscar_jogos(nome):
     conexao = conectar()
 
