@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block title %}Cadastrar Tarefa{% endblock %}
+
+{% block content %}
+
+<h2>Cadastrar nova tarefa</h2>
+
+<form method="POST">
+
+    <label>Título:</label>
+    <input type="text" name="titulo" required>
+
+    <label>Disciplina:</label>
+    <input type="text" name="disciplina" required>
+
+    <label>Descrição:</label>
+    <textarea name="descricao"></textarea>
+
+    <label>Data de entrega:</label>
+    <input type="date" name="data_entrega">
+
+    <button type="submit">Cadastrar tarefa</button>
+
+</form>
+
+{% endblock %}

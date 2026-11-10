@@ -1,0 +1,97 @@
+{% extends "base.html" %}
+
+{% block title %}Minhas Tarefas{% endblock %}
+
+{% block content %}
+
+<div class="topo-tarefas">
+    <h2>Minhas tarefas</h2>
+
+    <a class="botao-cadastrar" href="{{ url_for('cadastrar') }}">
+        + Nova tarefa
+    </a>
+</div>
+
+{% if tarefas %}
+
+    <div class="lista-tarefas">
+
+        {% for tarefa in tarefas %}
+
+            <div class="tarefa">
+
+                <div class="tarefa-info">
+
+                    <h3>{{ tarefa[1] }}</h3>
+
+                    <p>
+                        <strong>Disciplina:</strong>
+                        {{ tarefa[2] }}
+                    </p>
+
+                    {% if tarefa[3] %}
+                        <p>
+                            <strong>Descrição:</strong>
+                            {{ tarefa[3] }}
+                        </p>
+                    {% endif %}
+
+                    {% if tarefa[4] %}
+                        <p>
+                            <strong>Entrega:</strong>
+                            {{ tarefa[4] }}
+                        </p>
+                    {% endif %}
+
+                    <p>
+                        <strong>Status:</strong>
+                        {{ tarefa[5] }}
+                    </p>
+
+                </div>
+
+                <div class="acoes">
+
+                    <form method="POST"
+                          action="{{ url_for('status', id_tarefa=tarefa[0]) }}">
+                        <button type="submit">
+                            {% if tarefa[5] == "Pendente" %}
+                                Concluir
+                            {% else %}
+                                Reabrir
+                            {% endif %}
+                        </button>
+                    </form>
+
+                    <a href="{{ url_for('editar', id_tarefa=tarefa[0]) }}">
+                        Editar
+                    </a>
+
+                    <form method="POST"
+                          action="{{ url_for('excluir', id_tarefa=tarefa[0]) }}">
+                        <button type="submit">
+                            Excluir
+                        </button>
+                    </form>
+
+                </div>
+
+            </div>
+
+        {% endfor %}
+
+    </div>
+
+{% else %}
+
+    <div class="sem-tarefas">
+        <p>Nenhuma tarefa cadastrada.</p>
+
+        <a class="botao-cadastrar" href="{{ url_for('cadastrar') }}">
+            Cadastrar primeira tarefa
+        </a>
+    </div>
+
+{% endif %}
+
+{% endblock %}
