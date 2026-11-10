@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block title %}Editar Tarefa{% endblock %}
+
+{% block content %}
+
+<h2>Editar tarefa</h2>
+
+<form method="POST">
+
+    <label>Título:</label>
+    <input type="text" name="titulo" value="{{ tarefa[1] }}" required>
+
+    <label>Disciplina:</label>
+    <input type="text" name="disciplina" value="{{ tarefa[2] }}" required>
+
+    <label>Descrição:</label>
+    <textarea name="descricao">{{ tarefa[3] }}</textarea>
+
+    <label>Data de entrega:</label>
+    <input type="date" name="data_entrega" value="{{ tarefa[4] }}">
+
+    <button type="submit">Salvar alteração</button>
+
+</form>
+
+{% endblock %}
